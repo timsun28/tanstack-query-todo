@@ -109,6 +109,7 @@ export function createMethod<S extends z.ZodUndefined | z.ZodTypeAny, T>(config:
 
       try {
         let result = (Promise as any).await(run());
+        console.log({result});
 
         onResult.forEach(callback => {
           callback(result);
