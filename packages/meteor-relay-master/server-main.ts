@@ -109,7 +109,6 @@ export function createMethod<S extends z.ZodUndefined | z.ZodTypeAny, T>(config:
 
       try {
         let result = (Promise as any).await(run());
-        console.log({result});
 
         onResult.forEach(callback => {
           callback(result);
@@ -138,7 +137,7 @@ export function createMethod<S extends z.ZodUndefined | z.ZodTypeAny, T>(config:
 
   function call(args?: z.input<S>): Promise<T> {
     return new Promise<T>((resolve, reject) => {
-      Meteor.callAsync(name, args, (err: null | Meteor.Error, result: T) => {
+      Meteor.call(name, args, (err: null | Meteor.Error, result: T) => {
         if (err) {
           reject(err);
         } else {
