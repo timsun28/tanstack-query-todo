@@ -22,6 +22,15 @@ export const App = () => {
                     className="text-blue-500"
                 >
                     Tanstack Query
+                </a>{" "}
+                and{" "}
+                <a
+                    href="https://github.com/zodern/meteor-relay"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-500"
+                >
+                    Zodern Relay
                 </a>
                 !
             </h1>

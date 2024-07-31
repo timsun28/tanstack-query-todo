@@ -1,18 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Todo } from "/imports/api/todos";
-import { Meteor } from "meteor/meteor";
+import { insertTodo, removeTodo, updateTodo } from "/imports/methods/todo";
 
 export const useInsertTodoMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationKey: ["insertTodo"],
-        mutationFn: async ({ newTodo }: { newTodo: Todo }) => {
-            console.log({ newTodo });
-            const newInsertedId = (await Meteor.callAsync("todos.insert", {
-                newTodo: { ...newTodo },
-            }).then((res) => res)) as string;
-            return newInsertedId;
-        },
+        mutationFn: async ({ newTodo }: { newTodo: Todo }) =>
+            insertTodo({ newTodo }).then((res) => res),
         onMutate: async (variables) => {
             const queryKey = ["todos"];
             // Cancel current queries for the todos query
@@ -31,6 +26,18 @@ export const useInsertTodoMutation = () => {
 
             return { optimisticTodo };
         },
+        onError: (_error, _variables, context) => {
+            const queryKey = ["todos"];
+            // Rollback to the previous todo
+            queryClient.setQueryData<Todo[]>(queryKey, (old) => {
+                if (old && context) {
+                    return old.filter(
+                        (todo) => todo._id !== context.optimisticTodo._id,
+                    );
+                }
+                return old;
+            });
+        },
         retry: 3,
     });
 };
@@ -39,9 +46,11 @@ export const useUpdateTodoMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationKey: ["updateTodo"],
-        mutationFn: async ({ _id, done }: { _id: string; done: boolean }) => {
-            return await Meteor.callAsync("todos.finish", { _id, done });
-        },
+        mutationFn: async ({ _id, done }: { _id: string; done: boolean }) =>
+            updateTodo({
+                _id,
+                done,
+            }).then((res) => res),
         onMutate: async (variables) => {
             const queryKey = ["todos"];
             // Cancel current queries for the todos query
@@ -92,9 +101,7 @@ export const useRemoveTodoMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationKey: ["removeTodo"],
-        mutationFn: async ({ _id }: { _id: string }) => {
-            return await Meteor.callAsync("todos.remove", { _id });
-        },
+        mutationFn: async ({ _id }: { _id: string }) => removeTodo({ _id }),
         onMutate: async (variables) => {
             const queryKey = ["todos"];
             // Cancel current queries for the todos query
