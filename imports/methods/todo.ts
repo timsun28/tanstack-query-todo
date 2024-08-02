@@ -1,5 +1,5 @@
 import { createMethod } from "meteor/zodern:relay";
-import { TodoSchema, TodosCollection } from "/imports/api/todos";
+import { Todo, TodoSchema, TodosCollection } from "/imports/api/todos";
 import { z } from "zod";
 
 export const getTodos = createMethod({
@@ -16,6 +16,14 @@ export const insertTodo = createMethod({
     name: "todos.insert",
     schema: z.object({ newTodo: TodoSchema }),
     async run({ newTodo }) {
+        // This type assertion is what is causing the error
+        const test: Todo = {
+            _id: "123",
+            title: "test",
+            done: false,
+            createdAt: new Date(),
+        };
+        console.log({ test });
         return await TodosCollection.insertAsync({
             _id: newTodo._id,
             title: newTodo.title,

@@ -23,3 +23,5 @@ react-meteor-data@3.0.0-beta300.1       # React higher-order component for react
 
 zodern:types
 zodern:relay
+
+jorgenvatle:vite-bundler@2.0.1

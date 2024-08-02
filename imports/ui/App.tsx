@@ -6,10 +6,18 @@ import {
     useUpdateTodoMutation,
 } from "/imports/api/mutation";
 import { Random } from "meteor/random";
+import { Todo } from "/imports/api/todos";
 
 export const App = () => {
     const { data, isLoading, error } = useTodos();
 
+    // This is not causing the error in the client bundle
+    const defaultTodo: Todo = {
+        _id: "123",
+        title: "test",
+        done: false,
+        createdAt: new Date(),
+    };
     const updateMutation = useUpdateTodoMutation();
     return (
         <div className="mx-auto flex max-w-xl flex-col gap-4">
