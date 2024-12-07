@@ -16,6 +16,7 @@ export const insertTodo = createMethod({
     name: "todos.insert",
     schema: z.object({ newTodo: TodoSchema }),
     async run({ newTodo }) {
+        console.log({ newTodo });
         // This type assertion is what is causing the error
         const test: Todo = {
             _id: "123",
