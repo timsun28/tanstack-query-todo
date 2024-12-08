@@ -12,6 +12,8 @@ export default defineConfig({
         }),
         meteor({
             clientEntry: "imports/vite-entrypoint.tsx",
+            serverEntry: "server/main.ts",
+            enableExperimentalFeatures: true,
             stubValidation: {
                 warnOnly: true,
             },
