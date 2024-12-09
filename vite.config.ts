@@ -4,7 +4,6 @@ import { meteor } from "meteor-vite/plugin";
 // import zodernRelay from "@meteor-vite/plugin-zodern-relay";
 import localZodernRelay from "./vite-plugins/local-zodern-relay";
 
-
 export default defineConfig({
     plugins: [
         react({
@@ -12,7 +11,7 @@ export default defineConfig({
         }),
         meteor({
             clientEntry: "imports/vite-entrypoint.tsx",
-            serverEntry: "server/main.ts",
+            serverEntry: "server/vite_main.ts",
             enableExperimentalFeatures: true,
             stubValidation: {
                 warnOnly: true,
