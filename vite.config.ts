@@ -1,9 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { meteor } from "meteor-vite/plugin";
-// import zodernRelay from "@meteor-vite/plugin-zodern-relay";
-import localZodernRelay from "./vite-plugins/local-zodern-relay";
-
+import zodernRelay from "@meteor-vite/plugin-zodern-relay";
 
 export default defineConfig({
     plugins: [
@@ -12,7 +10,7 @@ export default defineConfig({
         }),
         meteor({
             clientEntry: "imports/vite-entrypoint.tsx",
-            serverEntry: "server/main.ts",
+            serverEntry: "server/vite_main.ts",
             enableExperimentalFeatures: true,
             stubValidation: {
                 warnOnly: true,
@@ -21,7 +19,7 @@ export default defineConfig({
                 debug: false,
             },
         }),
-        localZodernRelay({
+        zodernRelay({
             directories: {
                 /**
                  * Path to directories where your zodern:relay methods live
