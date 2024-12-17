@@ -1,0 +1,1 @@
+import{R as e}from"../entry-client/main-BCjkn502.entry.js";const t=()=>e.createElement("div",null,"Lazy Loaded Component");export{t as default};

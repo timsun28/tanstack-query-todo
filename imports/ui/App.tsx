@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useTodos } from "/imports/api/queries";
 import {
     useInsertTodoMutation,
@@ -7,6 +7,10 @@ import {
 } from "/imports/api/mutation";
 import { Random } from "meteor/random";
 import { Todo } from "/imports/api/todos";
+
+const LazyLoadedComponent = React.lazy(
+    () => import("/imports/ui/LazyLoadedComponent"),
+);
 
 export const App = () => {
     const { data, isLoading, error } = useTodos();
@@ -68,6 +72,9 @@ export const App = () => {
                     ))}
                 </div>
             )}
+            <Suspense fallback={<div>Loading...</div>}>
+                <LazyLoadedComponent />
+            </Suspense>
         </div>
     );
 };

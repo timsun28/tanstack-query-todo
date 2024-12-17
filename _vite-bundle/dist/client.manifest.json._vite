@@ -1,0 +1,20 @@
+{
+  "_vite-bundle/client/_entry.mjs": {
+    "file": "entry-client/main-BCjkn502.entry.js",
+    "name": "main",
+    "src": "_vite-bundle/client/_entry.mjs",
+    "isEntry": true,
+    "dynamicImports": [
+      "imports/ui/LazyLoadedComponent.tsx"
+    ]
+  },
+  "imports/ui/LazyLoadedComponent.tsx": {
+    "file": "chunk/LazyLoadedComponent-BCgKdU1C.js",
+    "name": "LazyLoadedComponent",
+    "src": "imports/ui/LazyLoadedComponent.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vite-bundle/client/_entry.mjs"
+    ]
+  }
+}
